@@ -16,4 +16,3 @@ app.delete("/api/admin/delete-team",[authJwt.verifyToken, authJwt.isAdmin], cont
 
 };
 
-    //[authJwt.verifyToken, authJwt.isLeader]

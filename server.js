@@ -11,6 +11,7 @@ var corsOptions = {
 const db = require("./app/models");
 const Role = db.role;
 
+// comment after 1st initialization if not using sync({force: true})
 function initial() {
     Role.create({
         id: 1,
@@ -28,8 +29,9 @@ function initial() {
     });
 }
 
+//db.sequelize.sync({force: true}).then(() => { to drop and create new tables
 
-db.sequelize.sync({force: true}).then(() => {
+db.sequelize.sync({force:true}).then(() => {
     console.log('Drop and Resync Db');
     initial();
 });
@@ -37,13 +39,11 @@ db.sequelize.sync({force: true}).then(() => {
 
 app.use(cors(corsOptions));
 
-// parse requests of content-type - application/json
+
 app.use(bodyParser.json());
 
-// parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// simple route
 app.get("/", (req, res) => {
     res.json({ message: "Temp route" });
 });
@@ -54,7 +54,6 @@ require('./app/routes/admin.routes')(app);
 require('./app/routes/leader.routes')(app);
 require('./app/routes/employee.routes')(app);
 
-// set port, listen for requests
 const PORT = process.env.PORT || 3006;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);

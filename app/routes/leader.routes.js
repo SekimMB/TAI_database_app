@@ -14,7 +14,7 @@ module.exports = function(app) {
     app.post("/api/leader/add-task",[authJwt.verifyToken, authJwt.isLeader], controller.addtask);
     app.put("/api/leader/modify-task",[authJwt.verifyToken, authJwt.isLeader],controller.modifytask);
     app.put("/api/leader/add-employee-totask",[authJwt.verifyToken, authJwt.isLeader],controller.addemployee);
-    app.put("/api/leader/delete-employee-totask",[authJwt.verifyToken, authJwt.isLeader],controller.deleteemployee);
+    app.put("/api/leader/remove-employee-fromtask",[authJwt.verifyToken, authJwt.isLeader],controller.deleteemployee);
     app.delete("/api/leader/delete-task",[authJwt.verifyToken, authJwt.isLeader], controller.deletetask);
 
 };

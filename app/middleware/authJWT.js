@@ -37,7 +37,7 @@ isAdmin = (req, res, next) => {
                 }
             }
 
-            res.status(403).send({
+            res.status(401).send({
                 message: "Require Admin Role!"
             });
             return;
@@ -55,7 +55,7 @@ isLeader = (req, res, next) => {
                 }
             }
 
-            res.status(403).send({
+            res.status(401).send({
                 message: "Require Leader Role!"
             });
         });
@@ -77,7 +77,7 @@ isLeaderOrAdmin = (req, res, next) => {
                 }
             }
 
-            res.status(403).send({
+            res.status(401).send({
                 message: "Require Leader or Admin Role!"
             });
         });
