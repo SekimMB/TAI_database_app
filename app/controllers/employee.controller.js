@@ -4,6 +4,7 @@ const Employee = db.registeredEmployee;
 const Role = db.role;
 
 const Op = db.Sequelize.Op;
+var user_role='';
 
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
@@ -64,14 +65,26 @@ exports.logIn = (req, res) => {
                 });
             }
 
-            var token = jwt.sign({ id_employee: user.id_employee, user_role:user.getRoles() }, config.secret, {
-                expiresIn: 86400 // 24 hours
-            });
+            var userRole = [];
+            user.getRoles().then(roles => {
+                for (let i = 0; i < roles.length; i++) {
+                    userRole.push(roles[i].name);
+                   // user_role = roles[i].name;
+                    console.log("1st use "+userRole);
+                }});
+
+            // var token = jwt.sign({ id_employee: user.id_employee, user_role:  }, config.secret, {
+            //     expiresIn: 86400 // 24 hours
+            // });
 
             var authorities = [];
             user.getRoles().then(roles => {
                 for (let i = 0; i < roles.length; i++) {
-                    authorities.push("ROLE_" + roles[i].name.toUpperCase());
+                    authorities.push(roles[i].name);
+                    console.log("2nd use "+i);
+                    var token = jwt.sign({ id_employee: user.id_employee, user_role:authorities  }, config.secret, {
+                        expiresIn: 86400 // 24 hours
+                    });
                 }
                 res.status(200).send({
                     id_employee: user.id_employee,

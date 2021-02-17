@@ -4,9 +4,13 @@ const Tasks = db.tasks;
 exports.addtask = (req, res) => {
     // Save Team to Database
     Tasks.create({
-        name: req.body.name,
+        id_employee : req.body.id_employee,
+        id_team : req.body.id_team,
+        title : req.body.title,
+        description : req.body.description,
+        time  :req.body.time
     }).then(
-        res.send("Team created"))
+        res.send("Task created"))
 };
 
 exports.deletetask = (req,res)=>{
@@ -14,12 +18,12 @@ exports.deletetask = (req,res)=>{
         where: {
             title: req.body.title
         }
-    }).then( res.send({ message: "Team was deleted successfully!" }))
+    }).then( res.send({ message: "Task was deleted successfully!" }))
 };
 
 exports.gettasks = (req,res)=>{
-    let tasks = Tasks.findAll()
-        .then(res.send(tasks))
+    Tasks.findAll()
+        .then(tasks=>res.send(tasks))
 
 }
 

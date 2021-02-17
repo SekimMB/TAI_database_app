@@ -3,6 +3,7 @@ const config = require("../config/auth.config.js");
 const db = require("../models");
 const User = db.registeredEmployee;
 let user_id='';
+let employee_role='';
 
 verifyToken = (req, res, next) => {
     let token = req.headers["x-access-token"];
@@ -20,12 +21,13 @@ verifyToken = (req, res, next) => {
             });
         }
         req.id_employee = decoded.id_employee;
+        employee_role = decoded.user_role;
         next();
     });
 };
 
 isAdmin = (req, res, next) => {
-console.log(req.id_employee);
+    console.log(req.id_employee);
     User.findByPk(req.id_employee).then(user => {
         user.getRoles().then(roles => {
             for (let i = 0; i < roles.length; i++) {

@@ -18,7 +18,7 @@ exports.deleteteam = (req,res)=>{
 };
 
 exports.getteams = (req,res)=>{
-     let teams = Teams.findAll()
-         .then(res.send(teams))
+     Teams.findAll()
+         .then(teams=>res.send(teams))
 
 }
