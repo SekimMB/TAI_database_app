@@ -11,4 +11,5 @@ module.exports = function(app) {
 
     app.post("/api/employee/register", controller.register);
     app.post("/api/employee/logIn", controller.logIn);
+    app.post("/api/employee/getEmployeeTasks", controller.register);
 };

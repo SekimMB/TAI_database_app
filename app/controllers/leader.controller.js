@@ -25,25 +25,40 @@ exports.gettasks = (req,res)=>{
     Tasks.findAll()
         .then(tasks=>res.send(tasks))
 
-}
+};
 
 exports.modifytask = (req,res)=>{
 
-    let teams = Teams.findAll()
-        .then(res.send(teams))
+    Tasks.update(
+        { id_employee : req.body.id_employee,
+            id_team : req.body.id_team,
+            title : req.body.title,
+            description : req.body.description,
+            time  :req.body.time },
+       {where: { id_task:req.body.id_task }}
+    ).then( res.send({ message: "Task was changed successfully!" }))
+        .catch( res.send({ message: "Failed to change task!" }))
 
-}
+};
 
 exports.addemployee = (req,res)=>{
+    Tasks.update(
+        { id_employee : req.body.id_employee,
+    },
+        {where: { id_task:req.body.id_task }}
+    ).then( res.send({ message: "Added employee to task!" }))
+        .catch( res.send({ message: "Failed to add employee to task!" }))
 
-    let teams = Teams.findAll()
-        .then(res.send(teams))
-
-}
+};
 
 exports.deleteemployee = (req,res)=>{
+    Tasks.update(
+        { id_employee : null,
+        },
+        {where: { id_task:req.body.id_task }})
+        .then( res.send({ message: "Removed employee from task!" }))
+        .catch( res.send({ message: "Failed to remove employee from task!" }))
 
-    let teams = Teams.findAll()
-        .then(res.send(teams))
 
-}
+
+};
